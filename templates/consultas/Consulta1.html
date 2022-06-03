@@ -1,0 +1,69 @@
+{% extends 'base/base.html' %}
+
+{% block content %}
+    <form method="post">
+        {% csrf_token %}
+        <div class="row" style="padding: 60px">
+           <div class="col-3"></div>
+           <div class="col-6 text-center">
+                <div  class="form-group">
+                   <h5 style="font-family:Fantasy">Mostrar todos los prestamos, ejemplares, libros y autor de los mismos, en un rango de fecha determinada, es decir fecha inicial y fecha final</h5>
+                   <h6>-----------------------------------------------------------------------</h6>
+                   <h5><i> INGRESE EL RANGO DE FECHAS </i><b></b> </h5>
+                    <br>
+                    <div style="padding: 5px">
+                        <label for="fecha1">Fecha Inicial:</label>
+                        <input type="text" name="fecha1" required>
+                    </div>
+                    <div style="padding: 5px"> 
+                        <label for="fecha2">Fecha Final:</label>
+                        <input type="text" name="fecha2" required>
+                    </div>
+                </div>
+                <div class="form-group container">
+                    <br>
+                    <button class="btn btn-outline-primary" type="submit">
+                        CONSULTAR
+                    </button>
+                </div>
+            </div>
+       </div>
+       <h3 class="text-center">TABLA</h3>
+    </form>
+    <div class="row justify-content-md-center" style="padding: 0px">
+        <div class="col-8" style=" background-color:#069A8E; border-radius: 10px;">
+             <div class = "text-center" class="form-group">
+                <table class="table table-primary table-hover">
+                    <thead>
+                      <tr class="table-info" >
+                        <th scope="col" class="text-center">ID</th>
+                        <th scope="col" class="text-center">USUARIO</th>
+                        <th scope="col" class="text-center">EJEMPLAR</th>
+                        <th scope="col" class="text-center">LIBRO</th>
+                        <th scope="col" class="text-center">AUTOR</th>
+                        <th scope="col" class="text-center">FECHA PESTAMO</th>
+                        <th scope="col" class="text-center">FECHA DEVOLUCION</th>
+                      </tr>
+                    </thead>
+                    <tbody> 
+                    {% if context %}
+                        {% for consulta in context.consulta1 %}
+                            <tr>
+                                <td class="text-center">{{ consulta.id}}</td>
+                                <td class="text-center">{{ consulta.usuario__nombre}}</td>
+                                <td class="text-center">{{ consulta.ejemplar__localizacion}}</td>
+                                <td class="text-center">{{ consulta.ejemplar__libro__titulo}}</td>
+                                <td class="text-center">{{ consulta.ejemplar__libro__autor__nombre}}</td>
+                                <td class="text-center">{{ consulta.fechadev}}</td>
+                                <td class="text-center">{{ consulta.fechapres}}</td>
+                            </tr>
+                        {% endfor %}
+                    {% else %}
+                        <h5><i> No existen registros</i></h5>
+                    {%endif%}
+                    </tbody>
+                </table>
+            </div>
+         </div>
+    </div>
+{% endblock  %}

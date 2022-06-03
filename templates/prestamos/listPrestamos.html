@@ -1,0 +1,59 @@
+{% extends 'base/base.html' %}
+
+{% block content %}
+
+
+<!-- <h1 class="pull-rig d-grid gap-2 d-md-flex justify-content-md-end" style="margin-top: 10px; margin-bottom: 5px;">
+    <a href="#" class="btn btn-primary pull-right" >Adicionar</a>
+</h1> -->
+<h1 class="pull-rig">
+    <div class="row">
+        <div class="col-6">
+            <h1></h1>
+            <h2 class="text-center" > LISTADO DE PRESTAMOS</h2>
+        </div>
+        <div class="col-6 text-center">
+            <a href="{% url 'prestamos:PrestarCreate' %}" class="btn btn-outline-primary">Adicionar</a>
+        </div>
+    </div>
+</h1>
+    <table class="table table-primary table-striped table-bordered table-hover border-top-radius " >
+        <thead>
+          <tr>
+            <th scope="col"class="text-center">ID</th>
+            <th scope="col"class="text-center">FECHA DEVOLUCION</th>
+            <th scope="col"class="text-center">FECHA PRESTAMO</th>
+            <th scope="col"class="text-center">USUARIO</th>
+            <th scope="col"class="text-center">EJEMPLAR</th>
+            <th scope="col"class="text-center">Opciones</th>
+          </tr>
+        </thead>
+        <tbody>
+            {% if prestamos %}
+
+                {% for prestar in prestamos %}
+                    <tr>
+                        <td class="text-center">{{ prestar.id }}</td>
+                        <td class="text-center">{{ prestar.fechadev }}</td>
+                        <td class="text-center">{{ prestar.fechapres }}</td>
+                        <td class="text-center">{{ prestar.usuario }}</td>
+                        <td class="text-center">{{ prestar.ejemplar }}</td>
+                        <td class="d-flex justify-content-center">
+                            <a class="btn btn-primary btn-warning btn-xs" href="{% url 'prestamos:PrestarEdit' prestar.id %}">
+                                <i class="fa-solid fa-pen-to-square"></i>
+                            </a>
+    
+                            <a class="btn btn-primary btn-dange btn-xs" href="{% url 'prestamos:PrestarElim' prestar.id %}">
+                                <i class="fa-solid fa-trash-can"></i>
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            {% else %}
+                <h3>No existen Registros en Prestamos</h3>
+            {% endif %}
+        </tbody>
+    </table>
+    
+
+{% endblock %}

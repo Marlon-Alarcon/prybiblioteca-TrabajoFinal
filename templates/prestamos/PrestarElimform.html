@@ -1,0 +1,12 @@
+{% extends 'base/base.html' %}
+
+{% block content %}
+<form method="post">
+    {% csrf_token %}
+    <h3>Desea eliminar el prestamo {{ prestamos.id }}</h3>
+    <button class="btn btn-danger" type="submit">
+        Si, Eliminar
+    </button>
+    <a class="btn btn-primary" href="{% url 'prestamos:listPrestamos' %}"> Cancelar </a>
+</form>
+{% endblock  %}

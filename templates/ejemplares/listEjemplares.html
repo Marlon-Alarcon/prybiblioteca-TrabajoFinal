@@ -1,0 +1,55 @@
+{% extends 'base/base.html' %}
+
+{% block content %}
+
+
+<!-- <h1 class="pull-rig d-grid gap-2 d-md-flex justify-content-md-end" style="margin-top: 10px; margin-bottom: 5px;">
+    <a href="#" class="btn btn-primary pull-right" >Adicionar</a>
+</h1> -->
+<h1 class="pull-rig">
+    <div class="row">
+        <div class="col-6">
+            <h1></h1>
+            <h2 class="text-center" > LISTADO DE EJEMPLARES</h2>
+        </div>
+        <div class="col-6 text-center">
+            <a href="{% url 'prestamos:EjemplarCreate' %}" class="btn btn-outline-primary">Adicionar</a>
+        </div>
+    </div>
+</h1>
+    <table class="table table-primary table-striped table-bordered table-hover border-top-radius " >
+        <thead>
+          <tr>
+            <th scope="col"class="text-center">ID</th>
+            <th scope="col"class="text-center">LOCALIZACION</th>
+            <th scope="col"class="text-center">LIBRO</th>
+            <th scope="col"class="text-center">Opciones</th>
+          </tr>
+        </thead>
+        <tbody>
+            {% if ejemplares %}
+
+                {% for ejemplar in ejemplares %}
+                    <tr>
+                        <td class="text-center">{{ ejemplar.id }}</td>
+                        <td class="text-center">{{ ejemplar.localizacion }}</td>
+                        <td class="text-center">{{ ejemplar.libro }}</td>
+                        <td class="d-flex justify-content-center">
+                            <a class="btn btn-primary btn-warning btn-xs" href="{% url 'prestamos:EjemplarEdit' ejemplar.id %}">
+                                <i class="fa-solid fa-pen-to-square"></i>
+                            </a>
+    
+                            <a class="btn btn-primary btn-dange btn-xs" href="{% url 'prestamos:EjemplarElim' ejemplar.id %}">
+                                <i class="fa-solid fa-trash-can"></i>
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            {% else %}
+                <h3>No existen Ejemplares</h3>
+            {% endif %}
+        </tbody>
+    </table>
+    
+
+{% endblock %}

@@ -1,0 +1,61 @@
+{% extends 'base/base.html' %}
+
+{% block content %}
+
+
+<!-- <h1 class="pull-rig d-grid gap-2 d-md-flex justify-content-md-end" style="margin-top: 10px; margin-bottom: 5px;">
+    <a href="#" class="btn btn-primary pull-right" >Adicionar</a>
+</h1> -->
+<h1 class="pull-rig">
+    <div class="row">
+        <div class="col-6">
+            <h1></h1>
+            <h2 class="text-center" > LISTADO DE LIBROS</h2>
+        </div>
+        <div class="col-6 text-center">
+            <a href="{% url 'libros:LibroCreate' %}" class="btn btn-outline-primary">Adicionar</a>
+        </div>
+    </div>
+</h1>
+    <table class="table table-primary table-striped table-bordered table-hover border-top-radius " >
+        <thead>
+          <tr>
+            <th scope="col"class="text-center">ID</th>
+            <th scope="col"class="text-center">TITULO</th>
+            <th scope="col"class="text-center">N° DE PAGINA</th>
+            <th scope="col"class="text-center">EDITORIAL</th>
+            <th scope="col"class="text-center">ISBN</th>
+            <th scope="col"class="text-center">AUTOR</th>
+            <th scope="col"class="text-center">Opciones</th>
+          </tr>
+        </thead>
+        <tbody>
+            {% if libros %}
+
+                {% for libro in libros %}
+                    <tr>
+                        <td class="text-center">{{ libro.id }}</td>
+                        <td class="text-center">{{ libro.titulo }}</td>
+                        <td class="text-center">{{ libro.numeropag }}</td>
+                        <td class="text-center">{{ libro.editorial }}</td>
+                        <td class="text-center">{{ libro.isbn }}</td>
+                        <td class="text-center">{{ libro.autor.extra.first }}</td>
+                        <td class="d-flex justify-content-center">
+                            <a class="btn btn-primary btn-warning btn-xs" href="{% url 'libros:LibroEdit' libro.id %}">
+                                <i class="fa-solid fa-pen-to-square"></i>
+                            </a>
+    
+                            <a class="btn btn-primary btn-dange btn-xs" href="{% url 'libros:libroElim' libro.id %}">
+                                <i class="fa-solid fa-trash-can"></i>
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            {% else %}
+                <h3>No existen Registros en Libros</h3>
+            {% endif %}
+        </tbody>
+    </table>
+    
+
+{% endblock %}
